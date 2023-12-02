@@ -42,7 +42,6 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
             max_number_of_current_color = max(games[game_id][color])
             power *= max_number_of_current_color
             if max_number_of_current_color <= cubes_in_bag[color]:
-
                 print("\t\tthis number of this color is possible")
             else:
                 print("\t\tthis number of this color is impossible")
@@ -59,6 +58,7 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
         print(f"{sum_of_powers=}")
         return sum_of_powers
 
+
 def test_solutions():
     sum = solve_puzzle_part("day_02/example_1.txt", 1)
     assert sum == 8
@@ -68,6 +68,7 @@ def test_solutions():
     assert sum == 2286
     sum = solve_puzzle_part("day_02/input.txt", 2)
     assert sum == 63700
+
 
 if __name__ == "__main__":
     test_solutions()

@@ -2,6 +2,7 @@ import re
 from pprint import pprint
 from typing import List, Tuple, Dict, Any
 
+
 # https://stackoverflow.com/a/4665027/2278742
 def find_all(a_str: str, sub: str):
     start = 0
@@ -14,7 +15,17 @@ def find_all(a_str: str, sub: str):
 
 
 def get_digits(line: str) -> List[str]:
-    mapping: Dict[str, str] = {"one": "1", "two": "2", "three": "3", "four": "4", "five": "5", "six": "6", "seven": "7", "eight": "8", "nine": "9"}
+    mapping: Dict[str, str] = {
+        "one": "1",
+        "two": "2",
+        "three": "3",
+        "four": "4",
+        "five": "5",
+        "six": "6",
+        "seven": "7",
+        "eight": "8",
+        "nine": "9",
+    }
 
     # search spelled out numbers and save them together with their indices in a dict
     found_spelled_out_numbers: Dict[int, str] = {}
@@ -45,7 +56,10 @@ def get_digits(line: str) -> List[str]:
     print(f"{all_found_numbers=}")
 
     # create list with the two digits that have the lowest and highest index
-    digits = [all_found_numbers[sorted(all_found_numbers.keys())[0]], all_found_numbers[sorted(all_found_numbers.keys())[-1]]]
+    digits = [
+        all_found_numbers[sorted(all_found_numbers.keys())[0]],
+        all_found_numbers[sorted(all_found_numbers.keys())[-1]],
+    ]
     return digits
 
 
@@ -72,6 +86,7 @@ def solve_puzzle_part(input_file: str, part: int) -> Tuple[List[int], int]:
     print(sum)
     print("---")
     return (calibration_values, sum)
+
 
 def test_solutions():
     calibration_values, sum = solve_puzzle_part("day_01/example.txt", 1)
@@ -115,6 +130,7 @@ def test_solutions():
     assert sum != 55001
     assert sum != 324
     assert sum == 54985
+
 
 if __name__ == "__main__":
     test_solutions()
