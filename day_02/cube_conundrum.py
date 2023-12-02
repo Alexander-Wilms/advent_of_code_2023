@@ -31,26 +31,39 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
 
     sum_of_id_of_games_with_valid_number_of_balls = 0
 
+    sum_of_powers = 0
     for game_id, game_record in games.items():
         print(f"Checking game {game_id}")
         possible = True
+        power = 1
         for color in cubes_in_bag.keys():
             print(f"\tChecking color {color}")
-            if max(games[game_id][color]) <= cubes_in_bag[color]:
+            max_number_of_current_color = max(games[game_id][color])
+            power *= max_number_of_current_color
+            if max_number_of_current_color <= cubes_in_bag[color]:
 
                 print("\t\tthis number of this color is possible")
             else:
                 print("\t\tthis number of this color is impossible")
                 possible = False
+        print(f"{power=}")
+        sum_of_powers += power
         if possible:
             sum_of_id_of_games_with_valid_number_of_balls += game_id
 
-    print(f"{sum_of_id_of_games_with_valid_number_of_balls=}")
-
-    return sum_of_id_of_games_with_valid_number_of_balls
+    if part == 1:
+        print(f"{sum_of_id_of_games_with_valid_number_of_balls=}")
+        return sum_of_id_of_games_with_valid_number_of_balls
+    else:
+        print(f"{sum_of_powers=}")
+        return sum_of_powers
 
 
 sum = solve_puzzle_part("day_02/example_1.txt", 1)
 assert sum == 8
 sum = solve_puzzle_part("day_02/input.txt", 1)
 assert sum == 2176
+sum = solve_puzzle_part("day_02/example_1.txt", 2)
+assert sum == 2286
+sum = solve_puzzle_part("day_02/input.txt", 2)
+assert sum == 63700
