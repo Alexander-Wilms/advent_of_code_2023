@@ -33,7 +33,7 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
     sum_of_id_of_games_with_valid_number_of_balls = 0
 
     sum_of_powers = 0
-    for game_id, game_record in games.items():
+    for game_id in games.keys():
         print(f"Checking game {game_id}")
         possible = True
         power = 1
