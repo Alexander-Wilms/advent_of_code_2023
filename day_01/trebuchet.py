@@ -73,45 +73,48 @@ def solve_puzzle_part(input_file: str, part: int) -> Tuple[List[int], int]:
     print("---")
     return (calibration_values, sum)
 
+def test_solutions():
+    calibration_values, sum = solve_puzzle_part("day_01/example.txt", 1)
+    assert calibration_values == [12, 38, 15, 77]
+    assert sum == 142
 
-calibration_values, sum = solve_puzzle_part("day_01/example.txt", 1)
-assert calibration_values == [12, 38, 15, 77]
-assert sum == 142
+    calibration_values, sum = solve_puzzle_part("day_01/input.txt", 1)
+    assert sum == 55130
 
-calibration_values, sum = solve_puzzle_part("day_01/input.txt", 1)
-assert sum == 55130
+    calibration_values, sum = solve_puzzle_part("day_01/example_2.txt", 2)
+    assert calibration_values == [29, 83, 13, 24, 42, 14, 76]
+    assert sum == 281
 
-calibration_values, sum = solve_puzzle_part("day_01/example_2.txt", 2)
-assert calibration_values == [29, 83, 13, 24, 42, 14, 76]
-assert sum == 281
+    calibration_values, sum = solve_puzzle_part("day_01/input.txt", 2)
+    pprint(calibration_values)
+    print(sum)
 
-calibration_values, sum = solve_puzzle_part("day_01/input.txt", 2)
-pprint(calibration_values)
-print(sum)
+    assert calibration_values[0] == 88
+    assert calibration_values[1] == 55
+    assert calibration_values[2] == 86
+    assert calibration_values[3] == 79
+    assert calibration_values[4] == 16
+    assert calibration_values[5] == 32
+    assert calibration_values[6] == 14
+    assert calibration_values[7] == 49
+    assert calibration_values[8] == 87
+    assert calibration_values[9] == 68
+    assert calibration_values[10] == 71
+    assert calibration_values[11] == 33
+    assert calibration_values[12] == 73
+    assert calibration_values[13] == 39
+    assert calibration_values[14] == 42
+    assert calibration_values[15] == 58
+    assert calibration_values[16] == 62
+    assert calibration_values[17] == 35
+    assert calibration_values[18] == 65
 
-assert calibration_values[0] == 88
-assert calibration_values[1] == 55
-assert calibration_values[2] == 86
-assert calibration_values[3] == 79
-assert calibration_values[4] == 16
-assert calibration_values[5] == 32
-assert calibration_values[6] == 14
-assert calibration_values[7] == 49
-assert calibration_values[8] == 87
-assert calibration_values[9] == 68
-assert calibration_values[10] == 71
-assert calibration_values[11] == 33
-assert calibration_values[12] == 73
-assert calibration_values[13] == 39
-assert calibration_values[14] == 42
-assert calibration_values[15] == 58
-assert calibration_values[16] == 62
-assert calibration_values[17] == 35
-assert calibration_values[18] == 65
+    assert sum < 54999
+    assert sum < 54996
+    assert sum != 54978
+    assert sum != 55001
+    assert sum != 324
+    assert sum == 54985
 
-assert sum < 54999
-assert sum < 54996
-assert sum != 54978
-assert sum != 55001
-assert sum != 324
-assert sum == 54985
+if __name__ == "__main__":
+    test_solutions()

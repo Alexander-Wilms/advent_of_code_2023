@@ -59,12 +59,15 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
         print(f"{sum_of_powers=}")
         return sum_of_powers
 
+def test_solutions():
+    sum = solve_puzzle_part("day_02/example_1.txt", 1)
+    assert sum == 8
+    sum = solve_puzzle_part("day_02/input.txt", 1)
+    assert sum == 2176
+    sum = solve_puzzle_part("day_02/example_1.txt", 2)
+    assert sum == 2286
+    sum = solve_puzzle_part("day_02/input.txt", 2)
+    assert sum == 63700
 
-sum = solve_puzzle_part("day_02/example_1.txt", 1)
-assert sum == 8
-sum = solve_puzzle_part("day_02/input.txt", 1)
-assert sum == 2176
-sum = solve_puzzle_part("day_02/example_1.txt", 2)
-assert sum == 2286
-sum = solve_puzzle_part("day_02/input.txt", 2)
-assert sum == 63700
+if __name__ == "__main__":
+    test_solutions()
