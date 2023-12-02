@@ -1,8 +1,9 @@
 import re
 from pprint import pprint
+from typing import Dict
 
 
-def get_cube_counts(line: str, color: str):
+def get_cube_counts(line: str, color: str) -> list[int]:
     matches = re.findall(r"\d* " + color, line)
     for index in range(0, len(matches)):
         matches[index] = int(re.findall(r"\d*", matches[index])[0])
@@ -12,7 +13,7 @@ def get_cube_counts(line: str, color: str):
 
 
 def solve_puzzle_part(file_name: str, part: int) -> int:
-    games = {}
+    games: Dict[int, Dict[str, list[int]]] = {}
 
     cubes_in_bag = {"red": 12, "green": 13, "blue": 14}
 
