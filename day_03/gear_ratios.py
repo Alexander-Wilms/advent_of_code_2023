@@ -48,7 +48,12 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
 
                             if not re.match(r"[\d\.]", neighbor):
                                 adjacent_symbol_found = True
-                        except:
+
+                            if re.match(r"\*", neighbor):
+                                adjacent_gear_found = True
+                                gear_row = row + row_delta
+                                gear_col = col + col_delta
+                        except Exception:
                             # print("inaccessible")
                             pass
 
@@ -60,11 +65,11 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
                     next_cell = schematic.at[row, col + 1]
                     if not re.match(r"\d", next_cell):
                         number_complete = True
-                except:
+                except Exception:
                     # line break
                     number_complete = True
 
-                if number_complete == True:
+                if number_complete:
                     current_part_number = int(current_part_number_string)
                     current_part_number_string = ""
                     print(f"number complete: {current_part_number}")
@@ -74,25 +79,59 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
                         numbers[count] = {}
                         numbers[count]["number"] = current_part_number
                         numbers[count]["is_part"] = adjacent_symbol_found
+                        numbers[count]["touches_gear"] = adjacent_gear_found
+                        if adjacent_gear_found:
+                            numbers[count]["gear_row"] = gear_row
+                            numbers[count]["gear_col"] = gear_col
                         count += 1
 
                     adjacent_symbol_found = False
+                    adjacent_gear_found = False
 
-                    pprint(numbers)
+                    # pprint(numbers)
 
         print()
 
     pprint(numbers)
 
     print()
-    sum = 0
-    for id in numbers.keys():
-        if numbers[id]["is_part"]:
-            sum += numbers[id]["number"]
+    sum_of_part_numbers = 0
+    sum_of_gear_ratios = 0
+    # use list() to copy keys, since we delete dict entries during the loop
+    # https://stackoverflow.com/a/11941855/2278742
+    for id in list(numbers.keys()):
+        if id not in numbers.keys():
+            continue
 
-    print(f"{sum=}")
+        if part == 1:
+            if numbers[id]["is_part"]:
+                sum_of_part_numbers += numbers[id]["number"]
 
-    return sum
+        if part == 2:
+            if numbers[id]["touches_gear"]:
+                gear_1 = numbers[id]["number"]
+                gear_2 = 0
+                # use list() to copy keys, since we delete dict entries during the loop
+                for id_potential_second_gear in list(numbers.keys()):
+                    if numbers[id_potential_second_gear]["touches_gear"]:
+                        if id_potential_second_gear != id:
+                            if (
+                                numbers[id_potential_second_gear]["gear_col"]
+                                == numbers[id]["gear_col"]
+                                and numbers[id_potential_second_gear]["gear_row"]
+                                == numbers[id]["gear_row"]
+                            ):
+                                gear_2 = numbers[id_potential_second_gear]["number"]
+                                numbers.pop(id_potential_second_gear)
+                gear_ratio = gear_1 * gear_2
+                sum_of_gear_ratios += gear_ratio
+
+    if part == 1:
+        print(f"{sum_of_part_numbers=}")
+        return sum_of_part_numbers
+    else:
+        print(f"{sum_of_gear_ratios=}")
+        return sum_of_gear_ratios
 
 
 def test_solutions():
@@ -100,10 +139,15 @@ def test_solutions():
     assert sum == 4361
 
     sum = solve_puzzle_part("day_03/input.txt", 1)
-    print(sum)
     assert sum < 3361139
     assert sum > 306612
     assert sum == 509115
+
+    sum = solve_puzzle_part("day_03/example_1.txt", 2)
+    assert sum == 467835
+
+    sum = solve_puzzle_part("day_03/input.txt", 2)
+    assert sum == 75220503
 
 
 if __name__ == "__main__":
