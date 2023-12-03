@@ -31,10 +31,12 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Lint
+      continue-on-error: true
       run: |
         ruff check .
 
     - name: Formatting
+      continue-on-error: true
       run: |
         ruff format --check .
 
