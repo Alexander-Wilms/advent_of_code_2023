@@ -6,6 +6,8 @@ import os
 
 
 def solve_puzzle_part(file_name: str, part: int) -> int:
+    # add commas between values so we can use pd.read_csv() and
+    # nicely display the schematic as a DataFrame
     with open(file_name) as f:
         data = f.readlines()
     with open(f"{file_name}.csv", "w") as f:
@@ -30,6 +32,8 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
     current_part_number = -1
     numbers = {}
     count = 0
+
+    # iterate over all cells of the schematic
     for row in range(schematic_size[0]):
         for col in range(schematic_size[1]):
             cell = schematic.at[row, col]
@@ -39,6 +43,7 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
                 print(cell)
                 current_part_number_string += cell
 
+                # iterate over all neighbors
                 for col_delta in [-1, 0, 1]:
                     for row_delta in [-1, 0, 1]:
                         # print(f"checking neighbor {row_delta},{col_delta} at {row+row_delta},{col+col_delta}:", end="")
@@ -59,6 +64,7 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
 
                 print(adjacent_symbol_found)
 
+                # check if we've read the complete number
                 number_complete = False
 
                 try:
