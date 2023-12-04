@@ -2,12 +2,20 @@ from pprint import pprint
 import re
 
 
+def get_id(line: str) -> int:
+    card_number = int(re.findall(r"\d+", line.split(":")[0])[0])
+    return card_number
+
+
 def solve_puzzle_part(file_name: str, part: int) -> int:
     with open(file_name) as f:
         sum_of_points = 0
-        for line in f.readlines():
+        lines = f.readlines()
+        scratchcards = {}
+        for line in lines:
             line = line.strip()
             print(line)
+            card_number = get_id(line)
             all_numbers_string = line.split(":")[1]
             winning_numbers_string = all_numbers_string.split("|")[0]
             my_numbers_string = all_numbers_string.split("|")[1]
@@ -27,11 +35,45 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
             print(f"{matches=}")
             number_of_matches = len(matches)
             print(f"{number_of_matches=}")
-            points = int(2 ** (number_of_matches - 1))
-            print(f"{points=}")
-            sum_of_points += points
-    print(f"{sum_of_points=}")
-    return sum_of_points
+            if part == 1:
+                points = int(2 ** (number_of_matches - 1))
+                print(f"{points=}")
+                sum_of_points += points
+            else:
+                scratchcards[card_number] = {}
+                scratchcards[card_number]["copies"] = 1
+                scratchcards[card_number]["winning_numbers"] = winning_numbers
+                scratchcards[card_number]["my_numbers"] = my_numbers
+
+    if part == 1:
+        print(f"{sum_of_points=}")
+        return sum_of_points
+    else:
+        for id, scratchcard in scratchcards.items():
+            pprint(scratchcards)
+            matches = set(scratchcard["winning_numbers"]).intersection(
+                set(scratchcard["my_numbers"])
+            )
+            print(f"{matches=}")
+            number_of_matches = len(matches)
+            print(f"{number_of_matches=}")
+            print(
+                f"Card {id} has {number_of_matches} matching numbers, so you win one copy each of the next {number_of_matches} cards: "
+            )
+            for i in range(number_of_matches):
+                try:
+                    print(f"trying to increment scratchcards[{id+i+1}][copies]")
+                    scratchcards[id + i + 1]["copies"] += scratchcard["copies"]
+                    print(id + i + 1, end="")
+                except Exception:
+                    pass
+            print()
+
+        number_of_scratchcards = 0
+        for id, scratchcard in scratchcards.items():
+            number_of_scratchcards += scratchcard["copies"]
+        print(f"{number_of_scratchcards=}")
+        return number_of_scratchcards
 
 
 def test_solutions():
@@ -40,6 +82,12 @@ def test_solutions():
 
     sum = solve_puzzle_part("day_04/input.txt", 1)
     assert sum == 18519
+
+    sum = solve_puzzle_part("day_04/example_1.txt", 2)
+    assert sum == 30
+
+    sum = solve_puzzle_part("day_04/input.txt", 2)
+    assert sum == 11787590
 
 
 if __name__ == "__main__":
