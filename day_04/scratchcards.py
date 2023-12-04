@@ -10,9 +10,8 @@ def get_id(line: str) -> int:
 def solve_puzzle_part(file_name: str, part: int) -> int:
     with open(file_name) as f:
         sum_of_points = 0
-        lines = f.readlines()
         scratchcards = {}
-        for line in lines:
+        for line in f.readlines():
             line = line.strip()
             print(line)
             card_number = get_id(line)
@@ -42,6 +41,7 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
             else:
                 scratchcards[card_number] = {}
                 scratchcards[card_number]["copies"] = 1
+                scratchcards[card_number]["number_of_matches"] = number_of_matches
                 scratchcards[card_number]["winning_numbers"] = winning_numbers
                 scratchcards[card_number]["my_numbers"] = my_numbers
 
@@ -51,22 +51,13 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
     else:
         for id, scratchcard in scratchcards.items():
             pprint(scratchcards)
-            matches = set(scratchcard["winning_numbers"]).intersection(
-                set(scratchcard["my_numbers"])
-            )
-            print(f"{matches=}")
-            number_of_matches = len(matches)
-            print(f"{number_of_matches=}")
             print(
-                f"Card {id} has {number_of_matches} matching numbers, so you win one copy each of the next {number_of_matches} cards: "
+                f"Card {id} has {scratchcard['number_of_matches']} matching numbers, so you win one copy each of the next {scratchcard['number_of_matches']} cards: "
             )
-            for i in range(number_of_matches):
-                try:
-                    print(f"trying to increment scratchcards[{id+i+1}][copies]")
-                    scratchcards[id + i + 1]["copies"] += scratchcard["copies"]
-                    print(id + i + 1, end="")
-                except Exception:
-                    pass
+            for i in range(scratchcard["number_of_matches"]):
+                print(f"trying to increment scratchcards[{id+i+1}][copies]")
+                scratchcards[id + i + 1]["copies"] += scratchcard["copies"]
+                print(id + i + 1, end="")
             print()
 
         number_of_scratchcards = 0
