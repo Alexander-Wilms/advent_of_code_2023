@@ -129,8 +129,8 @@ def test_solutions():
     sum = solve_puzzle_part("day_05/example_1.txt", 2)
     assert sum == 46
 
-    # sum = solve_puzzle_part("day_05/input.txt", 2)
-    # print(sum)
+    sum = solve_puzzle_part("day_05/input.txt", 2)
+    print(sum)
 
 
 if __name__ == "__main__":
