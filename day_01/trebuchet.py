@@ -1,6 +1,6 @@
 import re
 from pprint import pprint
-from typing import List, Tuple, Dict, Any
+from typing import Any, Dict, List, Tuple
 
 
 # https://stackoverflow.com/a/4665027/2278742

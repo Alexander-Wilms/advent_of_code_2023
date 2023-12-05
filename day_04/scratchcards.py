@@ -1,5 +1,5 @@
-from pprint import pprint
 import re
+from pprint import pprint
 
 
 def get_id(line: str) -> int:

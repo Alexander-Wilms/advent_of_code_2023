@@ -1,8 +1,9 @@
+import os
+import re
+from pprint import pprint
+
 import pandas as pd
 from pandas import DataFrame
-from pprint import pprint
-import re
-import os
 
 
 def solve_puzzle_part(file_name: str, part: int) -> int:
