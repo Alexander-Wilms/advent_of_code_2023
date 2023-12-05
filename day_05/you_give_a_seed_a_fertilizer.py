@@ -13,13 +13,13 @@ def get_actual_seeds(seeds: list[int]) -> list[int]:
     return actual_seeds
 
 
-def map_almanach_item(almanach: dict, source_value: int, origin_type: str) -> tuple[int, str]:
-    destination_type = list(almanach[origin_type].keys())[0]
+def map_almanac_item(almanac: dict, source_value: int, origin_type: str) -> tuple[int, str]:
+    destination_type = list(almanac[origin_type].keys())[0]
 
     count = 1
     mapping_found = False
-    for mapping in almanach[origin_type][destination_type]:
-        # print(f"Checking mapping {count} of {len(almanach[origin_type][destination_type])}")
+    for mapping in almanac[origin_type][destination_type]:
+        # print(f"Checking mapping {count} of {len(almanac[origin_type][destination_type])}")
         count += 1
         # pprint(mapping)
         # print(f"Source range starts at {mapping['source_range_start']} and contains {mapping['range_length']} values:")
@@ -44,14 +44,14 @@ def map_almanach_item(almanach: dict, source_value: int, origin_type: str) -> tu
 
 
 def solve_puzzle_part(file_name: str, part: int) -> int:
-    almanach = {}
+    almanac = {}
     with open(file_name) as f:
         lines = f.readlines()
         processing_map = False
         origin = ""
         destination = ""
         map_idx = 0
-        almanach_origin_created = False
+        almanac_origin_created = False
         for i in range(len(lines)):
             line = lines[i].strip()
             print(f"{line=}")
@@ -68,25 +68,25 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
                 origin = line.split("-")[0]
                 destination = line.split("-")[2].split(" ")[0]
                 map_idx = 0
-                almanach_origin_created = False
+                almanac_origin_created = False
 
             if processing_map and "map" not in line:
                 current_map = re.findall(r"\d+", line)
-                if not almanach_origin_created:
-                    almanach[origin] = {}
-                    almanach_origin_created = True
+                if not almanac_origin_created:
+                    almanac[origin] = {}
+                    almanac_origin_created = True
                 if map_idx == 0:
-                    almanach[origin][destination] = list()
-                    pprint(almanach)
+                    almanac[origin][destination] = list()
+                    pprint(almanac)
                 print(map_idx)
-                almanach[origin][destination].append({})
-                almanach[origin][destination][map_idx]["destination_range_start"] = int(current_map[0])
-                almanach[origin][destination][map_idx]["source_range_start"] = int(current_map[1])
-                almanach[origin][destination][map_idx]["range_length"] = int(current_map[2])
-                pprint(almanach)
+                almanac[origin][destination].append({})
+                almanac[origin][destination][map_idx]["destination_range_start"] = int(current_map[0])
+                almanac[origin][destination][map_idx]["source_range_start"] = int(current_map[1])
+                almanac[origin][destination][map_idx]["range_length"] = int(current_map[2])
+                pprint(almanac)
                 map_idx += 1
 
-    pprint(almanach)
+    pprint(almanac)
 
     lowest_location_number = math.inf
 
@@ -97,9 +97,9 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
         source_type = "seed"
         source_value = seed
         destination_value = -1
-        while source_type in almanach.keys():
+        while source_type in almanac.keys():
             print(f"{source_type} {source_value}, ", end="")
-            destination_value, destination_type = map_almanach_item(almanach, source_value, source_type)
+            destination_value, destination_type = map_almanac_item(almanac, source_value, source_type)
             source_value = destination_value
             source_type = destination_type
         print(f"{source_type} {source_value}")
