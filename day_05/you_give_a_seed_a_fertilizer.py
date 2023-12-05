@@ -48,7 +48,7 @@ def map_almanac_item(source_value: int, origin_type: str) -> tuple[int, str]:
     return destination_value, destination_type
 
 
-def solve_puzzle_part(file_name: str, part: int) -> int:
+def create_almanac(file_name) -> None:
     global almanac
     with open(file_name) as f:
         lines = f.readlines()
@@ -92,6 +92,11 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
                 map_idx += 1
 
     pprint(almanac)
+    return seeds
+
+
+def solve_puzzle_part(file_name: str, part: int) -> int:
+    seeds = create_almanac(file_name)
 
     lowest_location_number = math.inf
 
