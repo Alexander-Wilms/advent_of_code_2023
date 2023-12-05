@@ -1,15 +1,15 @@
 import math
 import re
 from pprint import pprint
+import itertools
 
 
 def get_actual_seeds(seeds: list[int]) -> list[int]:
-    actual_seeds = []
+    actual_seeds = range(0, -1)
     for idx in range(0, len(seeds), 2):
         # print(f"The {idx+1}. range starts with seed number {seeds[idx]} and contains {seeds[idx + 1]} values:")
-        this_range = list(range(seeds[idx], seeds[idx] + seeds[idx + 1]))
+        actual_seeds = itertools.chain(actual_seeds, range(seeds[idx], seeds[idx] + seeds[idx + 1]))
         # pprint(this_range)
-        actual_seeds += this_range
     return actual_seeds
 
 
@@ -90,10 +90,12 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
 
     lowest_location_number = math.inf
 
-    if part == 2:
-        seeds = get_actual_seeds(seeds)
+    if part == 1:
+        actual_seeds = seeds
+    else:
+        actual_seeds = get_actual_seeds(seeds)
 
-    for seed in seeds:
+    for seed in actual_seeds:
         source_type = "seed"
         source_value = seed
         destination_value = -1
@@ -102,7 +104,9 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
             destination_value, destination_type = map_almanac_item(almanac, source_value, source_type)
             source_value = destination_value
             source_type = destination_type
+
         print(f"{source_type} {source_value}")
+
         if source_value < lowest_location_number:
             lowest_location_number = source_value
 
@@ -121,7 +125,7 @@ def test_solutions():
     actual_seeds = get_actual_seeds([79, 14, 55, 13])
     print(f"{expected_actual_seeds=}")
     print(f"{actual_seeds=}")
-    assert expected_actual_seeds == actual_seeds
+    assert expected_actual_seeds == list(actual_seeds)
 
     sum = solve_puzzle_part("day_05/test_case_ranges.txt", 2)
     assert sum == 46
@@ -129,8 +133,8 @@ def test_solutions():
     sum = solve_puzzle_part("day_05/example_1.txt", 2)
     assert sum == 46
 
-    sum = solve_puzzle_part("day_05/input.txt", 2)
-    print(sum)
+    # sum = solve_puzzle_part("day_05/input.txt", 2)
+    # print(sum)
 
 
 if __name__ == "__main__":
