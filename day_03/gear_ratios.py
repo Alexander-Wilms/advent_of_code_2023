@@ -121,12 +121,7 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
                 for id_potential_second_gear in list(numbers.keys()):
                     if numbers[id_potential_second_gear]["touches_gear"]:
                         if id_potential_second_gear != id:
-                            if (
-                                numbers[id_potential_second_gear]["gear_col"]
-                                == numbers[id]["gear_col"]
-                                and numbers[id_potential_second_gear]["gear_row"]
-                                == numbers[id]["gear_row"]
-                            ):
+                            if numbers[id_potential_second_gear]["gear_col"] == numbers[id]["gear_col"] and numbers[id_potential_second_gear]["gear_row"] == numbers[id]["gear_row"]:
                                 gear_2 = numbers[id_potential_second_gear]["number"]
                                 numbers.pop(id_potential_second_gear)
                 gear_ratio = gear_1 * gear_2

@@ -24,9 +24,7 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
             my_numbers = re.findall(r"\d+", my_numbers_string)
             # pprint(winning_numbers)
             # pprint(my_numbers)
-            winning_numbers = [
-                int(winning_numbers[i]) for i in range(len(winning_numbers))
-            ]
+            winning_numbers = [int(winning_numbers[i]) for i in range(len(winning_numbers))]
             my_numbers = [int(my_numbers[i]) for i in range(len(my_numbers))]
             pprint(winning_numbers)
             pprint(my_numbers)
@@ -51,9 +49,7 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
     else:
         for id, scratchcard in scratchcards.items():
             pprint(scratchcards)
-            print(
-                f"Card {id} has {scratchcard['number_of_matches']} matching numbers, so you win one copy each of the next {scratchcard['number_of_matches']} cards: "
-            )
+            print(f"Card {id} has {scratchcard['number_of_matches']} matching numbers, so you win one copy each of the next {scratchcard['number_of_matches']} cards: ")
             for i in range(scratchcard["number_of_matches"]):
                 print(f"trying to increment scratchcards[{id+i+1}][copies]")
                 scratchcards[id + i + 1]["copies"] += scratchcard["copies"]
