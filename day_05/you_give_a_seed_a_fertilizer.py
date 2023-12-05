@@ -2,6 +2,9 @@ import math
 import re
 from pprint import pprint
 import itertools
+from functools import lru_cache
+
+almanac = {}
 
 
 def get_actual_seeds(seeds: list[int]) -> list[int]:
@@ -13,7 +16,9 @@ def get_actual_seeds(seeds: list[int]) -> list[int]:
     return actual_seeds
 
 
-def map_almanac_item(almanac: dict, source_value: int, origin_type: str) -> tuple[int, str]:
+@lru_cache(maxsize=None)
+def map_almanac_item(source_value: int, origin_type: str) -> tuple[int, str]:
+    global almanac
     destination_type = list(almanac[origin_type].keys())[0]
 
     count = 1
@@ -44,7 +49,7 @@ def map_almanac_item(almanac: dict, source_value: int, origin_type: str) -> tupl
 
 
 def solve_puzzle_part(file_name: str, part: int) -> int:
-    almanac = {}
+    global almanac
     with open(file_name) as f:
         lines = f.readlines()
         processing_map = False
@@ -101,7 +106,7 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
         destination_value = -1
         while source_type in almanac.keys():
             print(f"{source_type} {source_value}, ", end="")
-            destination_value, destination_type = map_almanac_item(almanac, source_value, source_type)
+            destination_value, destination_type = map_almanac_item(source_value, source_type)
             source_value = destination_value
             source_type = destination_type
 
