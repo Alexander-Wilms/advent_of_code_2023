@@ -1,6 +1,6 @@
+import math
 import re
 from pprint import pprint
-import math
 
 
 def solve_puzzle_part(file_name: str, part: int, efficient: bool) -> int:
@@ -10,6 +10,7 @@ def solve_puzzle_part(file_name: str, part: int, efficient: bool) -> int:
             line = line.replace(" ", "")
         time = re.findall(r"\d+", line)
         time = [int(x) for x in time]
+
         line = f.readline()
         if part == 2:
             line = line.replace(" ", "")
@@ -60,7 +61,7 @@ def solve_puzzle_part(file_name: str, part: int, efficient: bool) -> int:
             a = -1
             b = time[race_idx]
             # distance must be greater than the record, thus add a small constant
-            c = -distances[race_idx] - 0.00000000001
+            c = -(distances[race_idx] + 0.00000000001)
             root_of_discriminant = math.sqrt(b**2 - 4 * a * c)
             x_1 = (-b + root_of_discriminant) / 2 * a
             x_2 = (-b - root_of_discriminant) / 2 * a
