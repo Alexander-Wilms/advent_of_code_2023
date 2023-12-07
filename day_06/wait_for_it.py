@@ -96,9 +96,12 @@ def test_solutions():
     sum = solve_puzzle_part("day_06/example_1.txt", 2, False)
     assert sum == 71503
 
-    # verify the solution using a quadratic equation works with the example input
+    # verify the algorithm using a quadratic equation gives the same results as the naive approach
     sum = solve_puzzle_part("day_06/example_1.txt", 1, True)
     assert sum == 288
+
+    sum = solve_puzzle_part("day_06/input.txt", 1, True)
+    assert sum == 2065338
 
     sum = solve_puzzle_part("day_06/example_1.txt", 2, True)
     assert sum == 71503
