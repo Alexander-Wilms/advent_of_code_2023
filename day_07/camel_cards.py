@@ -1,7 +1,6 @@
-from pprint import pprint
-
 # https://stackoverflow.com/a/57003713/2278742
 from functools import cmp_to_key
+from pprint import pprint
 
 
 def primary_ordering(hand) -> int:

@@ -61,7 +61,8 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
     G_undirected = G.to_undirected()
 
     # graph connectivity can only be determined for undirected graphs
-    # but since we need the connectivit
+    # but since we need the directed to traverse the graph, we need to
+    # recreate it using the reduced set of nodes afterwards
     # https://stackoverflow.com/a/61537932/2278742
     graph_could_be_reduced = False
     components = [G_undirected.subgraph(c).copy() for c in nx.connected_components(G_undirected)]
@@ -99,6 +100,7 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
         print(f"{start_nodes=}")
         print(f"{end_nodes=}")
 
+    # https://networkx.org/documentation/stable/reference/generated/networkx.drawing.nx_pylab.draw_networkx.html
     nx.draw_networkx(G, nx.kamada_kawai_layout(G))
     plt.show(block=False)
     pprint(f"{subgraphs=}")
