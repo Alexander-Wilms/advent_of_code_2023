@@ -16,3 +16,8 @@ Run tests:
 ```
 ./.venv/bin/pytest -vrx
 ```
+
+Use Cython to compile Python to C in order to improve performance:
+```
+./compile_and_run_with_cython.sh day_08
+```
