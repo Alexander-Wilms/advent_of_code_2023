@@ -101,8 +101,15 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
         print(f"{end_nodes=}")
 
     # https://networkx.org/documentation/stable/reference/generated/networkx.drawing.nx_pylab.draw_networkx.html
-    nx.draw_networkx(G, nx.kamada_kawai_layout(G))
-    plt.show(block=False)
+
+    options = {
+        "font_size": 10,
+        "node_size": 1000,
+        "node_color": "white",
+        "edgecolors": "black",
+    }
+    nx.draw_networkx(G, nx.kamada_kawai_layout(G), **options)
+    plt.show(block=True)
     pprint(f"{subgraphs=}")
 
     if part == 1:
@@ -123,7 +130,7 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
         else:
             G_reduced = G
 
-    nx.draw_networkx(G_reduced, nx.kamada_kawai_layout(G_reduced))
+    nx.draw_networkx(G_reduced, nx.kamada_kawai_layout(G_reduced), **options)
     plt.show(block=True)
     print("extracting subgraphs complete")
 
