@@ -1,5 +1,6 @@
 import re
 from pprint import pprint
+from typing import Dict
 
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -10,7 +11,7 @@ def solve_puzzle_part(file_name: str, part_selection: int) -> int:
         left_right_instructions = f.readline().strip()
         f.readline()
         G = nx.DiGraph()
-        map = {}
+        map: Dict[str, Dict[str, str]] = {}
         first_node_found = False
         color_map = []
         lines = f.readlines()
