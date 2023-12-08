@@ -100,7 +100,7 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
         print(f"{end_nodes=}")
 
     nx.draw_networkx(G, nx.kamada_kawai_layout(G))
-    #plt.show(block=False)
+    plt.show(block=False)
     pprint(f"{subgraphs=}")
 
     if part == 1:
@@ -122,7 +122,7 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
             G_reduced = G
 
     nx.draw_networkx(G_reduced, nx.kamada_kawai_layout(G_reduced))
-    #plt.show(block=True)
+    plt.show(block=True)
     print("extracting subgraphs complete")
 
     turns_to_z = [-1] * len(subgraphs)
