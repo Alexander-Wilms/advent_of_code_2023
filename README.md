@@ -2,7 +2,7 @@
 
 Create requirements.txt:
 ```
-pipreqs --force --mode no-pin
+pipreqs --force --mode no-pin --ignore .venv
 ```
 
 Create venv to install packages via pip, separate from distro's Python packages:

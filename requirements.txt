@@ -1,4 +1,5 @@
 matplotlib
-numpy
+networkx
 pandas
 sympy
+scipy
