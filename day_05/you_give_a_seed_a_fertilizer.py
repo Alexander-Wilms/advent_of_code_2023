@@ -222,29 +222,28 @@ def solve_symbolically(seeds):
 
 
 def test_solutions():
-    # sum = solve_puzzle_part("day_05/example_1.txt", 1)
-    # assert sum == 35
+    sum = solve_puzzle_part("day_05/example_1.txt", 1)
+    assert sum == 35
 
-    # sum = solve_puzzle_part("day_05/input.txt", 1)
-    # assert sum == 323142486
+    sum = solve_puzzle_part("day_05/input.txt", 1)
+    assert sum == 323142486
 
-    # expected_actual_seeds = list(range(79, 79 + 14)) + list(range(55, 55 + 13))
-    # actual_seeds = get_actual_seeds([79, 14, 55, 13])
-    # print(f"{expected_actual_seeds=}")
-    # print(f"{actual_seeds=}")
-    # assert expected_actual_seeds == list(actual_seeds)
+    expected_actual_seeds = list(range(79, 79 + 14)) + list(range(55, 55 + 13))
+    actual_seeds = get_actual_seeds([79, 14, 55, 13])
+    print(f"{expected_actual_seeds=}")
+    print(f"{actual_seeds=}")
+    assert expected_actual_seeds == list(actual_seeds)
 
-    # sum = solve_puzzle_part("day_05/test_case_ranges.txt", 2)
-    # assert sum == 46
+    sum = solve_puzzle_part("day_05/test_case_ranges.txt", 2)
+    assert sum == 46
 
-    # sum = solve_puzzle_part("day_05/example_1.txt", 2)
-    # assert sum == 46
+    sum = solve_puzzle_part("day_05/example_1.txt", 2)
+    assert sum == 46
 
     # sum = solve_puzzle_part("day_05/input.txt", 2)
     # print(sum)
 
     seeds = create_almanac("day_05/example_1.txt")
-
     solve_symbolically(seeds)
 
 
