@@ -19,7 +19,6 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
     for histories_idx in range(len(report)):
         print(f"{histories_idx+1}/{len(report)}")
         all_deltas_zeros = False
-        indent = ""
         idx = 0
         next_value = 0
         next_value_addends = []
@@ -68,7 +67,6 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
         tmp_last = 0
         tmp_first = 0
         for idx in range(len(last_values) - 1, 0 - 1, -1):
-            # print(f"{tmp} += {last_values[idx]}")
             tmp_last += last_values[idx]
             last_values[idx] = tmp_last
 
@@ -84,28 +82,12 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
         print(f"{last_values=}")
         print(f"{first_values=}")
 
-        tmp_last = 0
-        for idx in range(len(next_value_addends)):
-            tmp_last += next_value_addends[idx]
-            next_value_addends[idx] = tmp_last
-
         print_triangle(report, histories_idx, first_values, last_values)
 
-        # last row
-        # history = report[histories_idx][-1]
-        # print(indent, end="")
-        # print(f"{first_values[idx]} |", end="")
-        # for value in history:
-        #     print(f"{value:=3} ", end="")
-        # print(f"| {last_values[-1]}")
-        # print()
-
-        # print(f"{next_value=}")
         sum_next += next_value
         sum_prev += first_values[0]
 
     print(f"{next_value=} -> {sum_next}")
-
     print(f"{first_values=} -> {sum_prev}")
 
     if part == 1:
@@ -116,7 +98,6 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
 
 def print_triangle(report, histories_idx, first_values, last_values):
     indent = "  "
-    # pprint(histories)
     for idx in range(len(report[histories_idx])):
         history = report[histories_idx][idx]
         print(indent, end="")
