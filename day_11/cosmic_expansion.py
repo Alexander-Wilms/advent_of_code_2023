@@ -3,6 +3,8 @@ import os
 from pprint import pprint
 from typing import Dict
 
+import matplotlib.pyplot as plt
+import networkx as nx
 import numpy as np
 import pandas as pd
 from pandas import DataFrame
@@ -102,6 +104,28 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
     print(f"{galaxies=}")
 
     print("Find rows and columns without galaxies")
+
+    G = nx.Graph()
+
+    (rows, cols) = map.shape
+
+    options = {
+        "font_size": 7,
+        "node_size": 500,
+        "node_color": "white",
+        "edgecolors": "black",
+    }
+
+    for row in range(rows):
+        for col in range(cols):
+            G.add_node(f"{row},{col}")
+            if col + 1 < cols:
+                G.add_edge(f"{row},{col}", f"{row},{col+1}")
+            if row + 1 < rows:
+                G.add_edge(f"{row},{col}", f"{row+1},{col}")
+
+        nx.draw_networkx(G, nx.kamada_kawai_layout(G), **options)
+        plt.show(block=True)
 
     return 0
 
