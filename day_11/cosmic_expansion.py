@@ -10,10 +10,13 @@ from pandas import DataFrame
 map: Dict[str, Dict[str, str]] = {}
 
 
-def find_empty_cols_and_rows(map: DataFrame) -> tuple[list, list]:
+def find_empty_cols_and_rows(map: DataFrame) -> tuple[list, list, dict]:
     (rows, cols) = map.shape
     cols_empty = [True] * cols
     rows_empty = [True] * rows
+
+    galaxies = {}
+    galaxy_count = 1
 
     # https://stackoverflow.com/a/59413206/2278742
     row_count = 0
@@ -23,6 +26,8 @@ def find_empty_cols_and_rows(map: DataFrame) -> tuple[list, list]:
             if val != ".":
                 rows_empty[row_count] = False
                 cols_empty[col_count] = False
+                galaxies[galaxy_count] = [row_count, col_count]
+                galaxy_count += 1
             col_count += 1
         row_count += 1
 
@@ -32,13 +37,13 @@ def find_empty_cols_and_rows(map: DataFrame) -> tuple[list, list]:
     pprint(f"{rows_empty_idx=}")
     pprint(f"{cols_empty_idx=}")
 
-    return rows_empty_idx, cols_empty_idx
+    return rows_empty_idx, cols_empty_idx, galaxies
 
 
-def expand_universe(map: DataFrame) -> DataFrame:
+def expand_universe(map: DataFrame) -> tuple[DataFrame, dict]:
     print("Expanding universe")
     (rows, cols) = map.shape
-    rows_empty, cols_empty = find_empty_cols_and_rows(map)
+    rows_empty, cols_empty, _ = find_empty_cols_and_rows(map)
 
     empty_col = pd.DataFrame({"V": ["."] * rows})
     for idx in range(len(cols_empty) - 1, 0 - 1, -1):
@@ -64,10 +69,18 @@ def expand_universe(map: DataFrame) -> DataFrame:
     print("Expanded universe:")
     print(map)
 
+    _, _, galaxies = find_empty_cols_and_rows(map)
+
+    return map, galaxies
+
 
 def solve_puzzle_part(file_name: str, part: int) -> int:
     with open(file_name) as f:
-        data = f.readlines()
+        data_single_string = f.read()
+
+    data = data_single_string.split("\n")
+
+    print(f"Universe contains {data_single_string.count('#')} galaxies")
     with open(f"{file_name}.csv", "w") as f:
         for line in data:
             start_of_line = True
@@ -84,7 +97,9 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
 
     print(map)
 
-    expand_universe(map)
+    map, galaxies = expand_universe(map)
+
+    print(f"{galaxies=}")
 
     print("Find rows and columns without galaxies")
 
@@ -94,7 +109,7 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
 def test_solutions():
     steps = solve_puzzle_part("day_11/example_1.txt", 1)
     print(steps)
-    #assert steps == 374
+    # assert steps == 374
 
 
 if __name__ == "__main__":
