@@ -5,13 +5,13 @@ from pprint import pprint
 
 def solve_puzzle_part(file_name: str, part: int, efficient: bool) -> int:
     with open(file_name) as f:
-        line = f.readline()
+        line = f.readline(5_000_000)
         if part == 2:
             line = line.replace(" ", "")
         time = re.findall(r"\d+", line)
         time = [int(x) for x in time]
 
-        line = f.readline()
+        line = f.readline(5_000_000)
         if part == 2:
             line = line.replace(" ", "")
         distances = re.findall(r"\d+", line)

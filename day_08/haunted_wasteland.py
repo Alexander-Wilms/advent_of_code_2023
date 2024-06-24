@@ -14,8 +14,8 @@ def solve_puzzle_part(file_name: str, part: int) -> int:
     global map
     map = {}
     with open(file_name) as f:
-        left_right_instructions = f.readline().strip()
-        f.readline()
+        left_right_instructions = f.readline(5_000_000).strip()
+        f.readline(5_000_000)
         G = nx.DiGraph()
         first_node_found = False
         color_map = []
